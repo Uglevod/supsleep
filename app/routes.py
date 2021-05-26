@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 from app   import app
-from app   import collection
+from app   import mongo
+from app   import mpcollection
 from flask import request, jsonify
+
 
 @app.route('/upsl')
 def index(): # начальная меню панель 
