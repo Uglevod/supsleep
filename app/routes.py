@@ -16,7 +16,11 @@ def index(): # хама форма добавления дня
 @app.route('/upsl/api/adday, methods=['GET', 'POST'] ')
 def index(): # сюда json 
     content = request.json
-    return "Hello, World!"
+    db.todos.insert_one({'date': content['date'] ,'round': content['round'],'week': content['week'],'up': '-','sleep': '-','nup': content['nup'],'nsleep': content['nsleep']  })
+    return flask.jsonify(message="success")
+
+     
+    
 
 
 
