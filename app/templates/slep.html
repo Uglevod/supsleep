@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>D Сон</title>
+
+    <meta name="description" content="just up and sleep">
+    <meta name="author" content="Yogger">
+
+    <link href="{{ url_for('static',filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static',filename='css/style.css') }}" rel="stylesheet">
+
+  </head>
+  <body>
+
+    <div class="container-fluid">
+	<div class="row">
+		<div class="col-md-2">
+		</div>
+		<div class="col-md-8 ">
+			<h1 class="text-center">
+				{{time}}
+			</h1>
+		</div>
+		<div class="col-md-2">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-2">
+		</div>
+		<div class="col-md-8">
+			<h2 class="text-center">
+				{{date}}
+			</h2>
+		</div>
+		<div class="col-md-2">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+		</div>
+		<div class="col-md-4">
+			 
+			<button type="button" onclick="go()" class="btn btn-lg btn-block btn-warning">
+				Го спать
+			</button>
+		</div>
+		<div class="col-md-4">
+		</div>
+	</div>
+</div>
+
+     <script src="{{ url_for('static',filename='js/jquery.min.js') }} "></script>
+    <script src="{{ url_for('static',filename='js/bootstrap.min.js') }} "></script>
+    <script src="{{ url_for('static',filename='js/scripts.js') }} "></script>
+  <script type="text/javascript">
+      function go() {
+
+            let tt="{{time}}"
+            let dd="{{date}}"
+
+            data = { "sleep":tt , "date":dd  }
+
+          $.ajax({
+            url: "{{host}}",
+            data: JSON.stringify(data),
+            dataType: 'json',
+            contentType: 'application/json',
+            type: 'POST',
+            success: function(response) {
+                console.log(response);
+                 
+
+
+            }
+        }); 
+      
+
+
+}
+
+  </script>
+
+  </body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Yogger pan</title>
+    <meta name="description" content="PANEL">
+    <meta name="author" content="Yogger">
+    <link href="{{ url_for('static',filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static',filename='css/style.css') }}" rel="stylesheet">
+    <link href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" rel="stylesheet">
+</head>
+
+<body class="m-3">
+    <div class="container-fluid ">
+        <div class="row">
+            <div class="col-md-2">
+            </div>
+            <div class="col-8">
+                <form role="form" id="myform">
+                    <div class="form-group">
+                        <label for="round">
+                            Раунд (1-2-3-4)
+                        </label>
+                        <input class="form-control" id="round" name="round">
+                    </div>
+                    <div class="form-group">
+                        <label for="wd">
+                            Номер недели (1-52)
+                        </label>
+                        <input class="form-control" id="week" name="week">
+                    </div>
+                    <div class="form-group">
+                        <label for="date">
+                            Дата (24.04.81)
+                        </label>
+                        <input class="form-control" id="date" name="date">
+                    </div>
+                    <div class="form-group">
+                        <label for="dn">
+                            День недели (ПН-ВТ)
+                        </label>
+                        <input class="form-control" id="wkd" name="wkd">
+                    </div>
+                    <div class="form-group">
+                        <label for="normup">
+                            Норма подьем (5:40)
+                        </label>
+                        <input class="form-control" id="nup" name="nup">
+                    </div>
+                    <div class="form-group">
+                        <label for="normsleep">
+                            Норма сон (20:00)
+                        </label>
+                        <input type="text" class="form-control" id="nsp" name="nsp">
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="submitform()">
+                        Заявить
+                    </button>
+                </form>
+            </div>
+            <div class="col-md-2">
+            </div>
+        </div>
+        <table id="table" data-toggle="table" data-flat="true"   data-url="{{gthost}}">
+            <thead>
+                <tr>
+                    <th data-field="round" data-sortable="true">Раунд</th>
+                    <th data-field="week" data-sortable="true">Неделя</th>
+                    <th data-field="date" data-sortable="true">Дата</th>
+                    <th data-field="wkd" data-sortable="true">Д.Недели</th>
+                    <th data-field="nup" data-sortable="true">Н.Утро</th>
+                    <th data-field="nsp" data-sortable="true">Н.Сон</th>
+                </tr>
+            </thead>
+        </table>
+        </table>
+    </div>
+    <script src="{{ url_for('static',filename='js/jquery.min.js') }} "></script>
+    <script src="{{ url_for('static',filename='js/bootstrap.min.js') }} "></script>
+    <script src="{{ url_for('static',filename='js/scripts.js') }} "></script>
+    <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+    <script type="text/javascript">
+    function submitform() {
+        var formData = JSON.stringify($("#myform").serializeArray());
+
+        formData = {};
+
+        formData['round'] = $("#myform ").find('input[name="round"]').val();
+        formData['week']  = $("#myform ").find('input[name="week"]' ).val();
+        formData['date']  = $("#myform ").find('input[name="date"]' ).val();
+        formData['wkd']   = $("#myform ").find('input[name="wkd"]'  ).val();
+        formData['nup']   = $("#myform ").find('input[name="nup"]'  ).val();
+        formData['nsp']   = $("#myform ").find('input[name="nsp"]'  ).val();
+
+        console.log(JSON.stringify(formData));
+
+        $.ajax({
+            url: "{{host}}",
+            data: JSON.stringify(formData),
+            dataType: 'json',
+            contentType: 'application/json',
+            type: 'POST',
+            success: function(response) {
+                console.log(response);
+                document.location.reload();
+
+
+            }
+        });
+
+
+    }
+    </script>
+</body>
+
+</html>
